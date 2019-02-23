@@ -1,0 +1,53 @@
+{% load static %}
+
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static '/Course/style.css' %}" /> <!-- Main stylesheet /-->
+    {% block headContent %}{% endblock %}
+  </head>
+  <body style="align-items:center;" style="padding-top:-10px;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark h-15" style="padding-bottom: 0;">
+      <a class="navbar-brand" style="padding-top:0;" href="/">
+        <img style="filter: invert(100%)" src="https://i.pinimg.com/originals/c5/1c/da/c51cda89a29626ea7b655bd7f703218c.png"
+          width="30" height="30" alt="">
+        P U R E
+      </a>
+      <div style="padding-bottom:5">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="/course/allcourses">Available Courses</a>
+          <a class="nav-item nav-link" href="/accounts/dashboard">Dashboard</a>
+          <a class="nav-item nav-link disabled" href="#">Disabled</a>
+          <form class="form-inline justify-content-center" action="/accounts/logout" style="padding-top:4;padding-bottom:0;" method="post">
+            {% csrf_token %}
+            <button class="nav-item navbar-btn btn-sm" style="padding-top:2" type="submit">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    {% block bodyContent %}{% endblock %}
+  </body>
+</html>

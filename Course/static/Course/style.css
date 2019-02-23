@@ -1,0 +1,33 @@
+body{
+   font-family: 'Open Sans', sans-serif;
+  background:lightcoral;
+  margin: 0 auto 0 auto;
+  width:100%;
+  text-align:center;
+}
+
+box{
+    background-color: lightblue;
+    width: 200px;
+    padding: 25px;
+    border: 25px solid navy;
+}z
+
+p{
+  font-size:12px;
+  text-decoration: none;
+  color:#ffffff;
+}
+
+.password{
+  border-radius:4px;
+  background:#ecf0f1;
+  border: #ccc 1px solid;
+  padding: 8px;
+  width:250px;
+  font-size:1em;
+}
+
+.jumbotron {
+  padding:0 0 0 0;
+}

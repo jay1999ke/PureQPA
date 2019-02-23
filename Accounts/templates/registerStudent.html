@@ -1,0 +1,49 @@
+{% extends "accountsBase.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block bodyContent %}
+  <br/>
+    <div class="container" align="center">
+        <div class="jumbotron col-md-4 " align="center">
+          <h2>Pure Register</h2>
+          <form class="login" action="" method="post">
+          {% csrf_token %}
+          <p style="color:black">note: registration is for a short while (for now), due to development</p>
+          <div class="form-group">
+            {% render_field form.username class+="password required form-control" autocomplete="off" placeholder="Username" %}
+          </div>
+          <div class="form-group">
+            {% render_field form.password class+="password required form-control" autocomplete="off" placeholder="Password" type="password" %}
+          </div>
+          <div class="form-group">
+            {% render_field form.passwordAgain class+="password required form-control" autocomplete="off" placeholder="Password Again" type="password" %}
+          </div>
+          <div class="form-group">
+            {% render_field form.first_name class+="password required form-control" autocomplete="off" placeholder="First Name" %}
+          </div>
+          <div class="form-group">
+            {% render_field form.last_name class+="password required form-control" autocomplete="off" placeholder="Last Name" %}
+          </div>
+          <div class="form-group">
+            {% render_field form.email class+="password required form-control" autocomplete="off" placeholder="Email" type='email' %}
+          </div>
+          <div class="form-group">
+            {% render_field form.roll class+="password required form-control" autocomplete="off" placeholder="Roll no." %}
+          </div>
+          <div class="form-group">
+            {% render_field form.year class+="password required form-control" autocomplete="off" placeholder="Year of study" type='number' %}
+          </div>
+
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary" name="submit" value="Register">
+          </div>
+          </form>
+        </div>
+        <div class="col-md-4 ">
+          <img class="container-fluid" style='height: 100%; width: 100%; object-fit: contain' src="https://i.pinimg.com/originals/c5/1c/da/c51cda89a29626ea7b655bd7f703218c.png">
+        </div>
+    </div>
+      
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+{% endblock %}

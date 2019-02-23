@@ -1,0 +1,19 @@
+{% extends "courseBase.html" %}
+{% load static %}
+
+{% block bodyContent %}
+    <h2>{{details}}</h2>
+    <br>
+    <p style="color:black;"> course code : {{details.courseCode}} </p>
+    <div class="container">
+      <div class="jumbotron col-md-4 col-md-offset-4">
+        <img class="container-fluid" style='height: 100%; width: 100%; object-fit: contain' src={{details.link}}>
+        <form class="login" action="/accounts/courseEnroll/{{details.courseCode}}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary" name="submit" value="Enroll">
+          </div>
+        </form>
+      </div>
+    </div>
+{% endblock %}

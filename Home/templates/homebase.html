@@ -1,0 +1,76 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en-US">
+<head>
+  <!-- Latest compiled and minified CSS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+ crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+ crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+ crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+ crossorigin="anonymous"></script>
+
+	<!-- Meta tags & title /-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="robots" content="all,index,follow" />
+
+	<title>Pure</title>
+	<meta name="description" content="Create a sticky navigation bar that remains fixed to the top after scroll" />
+
+	<link rel="stylesheet" type="text/css" href="{% static '/Home/style.css' %}" /> <!-- Main stylesheet /-->
+
+</head>
+
+<body>
+
+<section id="screen1">
+  <br>
+    <div class="container jumbotron" align="center">
+       <div class="col-md-2 col-md-offset-5" align="center">
+         <img class="container-fluid" style='height: 50%; width: 50%; object-fit: contain' src="https://i.pinimg.com/originals/c5/1c/da/c51cda89a29626ea7b655bd7f703218c.png">
+       </div>
+       <p style="color:black">Pure Learning System</p><br>
+    </div>
+
+
+	<nav>
+		<ul>
+				<li><a href="/accounts/login">Login</a></li>
+			<li><a href="/">Home</a></li>
+			<!--<li><a href="">About</a></li>
+			<li><a href="#">Team</a></li>-->
+			<li><a href="/contact">Contact</a></li>
+		</ul>
+	</nav>
+
+</section>
+
+<section id="screen2"></section>
+<section id="screen3"></section>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+   $(document).ready(function(){
+	   $(window).bind('scroll', function() {
+	   var navHeight = $( window ).height() - 70;
+			 if ($(window).scrollTop() > navHeight) {
+				 $('nav').addClass('fixed');
+			 }
+			 else {
+				 $('nav').removeClass('fixed');
+			 }
+		});
+	});
+</script>
+
+</body>
+</html>
