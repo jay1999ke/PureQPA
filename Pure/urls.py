@@ -20,9 +20,10 @@ admin.site.site_title = "| Pure"
 admin.site.index_title = "Admin"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('system/', admin.site.urls),
     path('', include("Home.urls")),
     path('accounts/',include("Accounts.urls")),
     path('course/',include("Course.urls")),
     path('faculty/',include("Mentor.urls")),
+    path('admin/',include("Control.urls")),
 ]
