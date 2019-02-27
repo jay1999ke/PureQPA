@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Home.models import purePerson, student, faculty
 from Course.models import course
-from Course.studentCourseRel import isEnrolled
+from Course.studentCourseRel import isEnrolled, isFaculty
 
 # Create your views here.
 
@@ -24,25 +24,19 @@ class dashboard(View):
             person = purePerson.objects.get(user=request.user)
             if person.type == 'student':
                 activeUser = student.objects.get(pPerson=person)
-                s = "stu"
-                if activeUser.faculty_access:
-                    s = "fac"
             elif person.type == 'faculty':
                 activeUser = faculty.objects.get(pPerson=person)
-                s = "fac"
             else:
                 activeUser = user
             if request.user.is_active :  # only for students
-                if s == "stu": 
-                    """courses_taken = activeUser.coursesTaken.all()
-                    context = {'iduser': [activeUser, person.type, request.user.last_name, request.user.first_name,
-                                        request.user.email], 'name': request.user.first_name, 'courses_taken': courses_taken}
-                    redirect_template = 'loginDash.html'
-                    return render(request, redirect_template, context)
-                    """
+                if person.type =='student': 
                     return HttpResponseRedirect('/accounts/dashboard')
-                elif s == "fac":
-                    return HttpResponse("you are faculty member")
+                elif person.type =='faculty':
+                    courses = activeUser.courses.all()
+                    context = {'iduser': [activeUser, person.type, request.user.last_name, request.user.first_name,
+                                      request.user.email], 'name': request.user.first_name, 'courses': courses}
+                    print(context)
+                    return render(request,"dashboard.html",context)
         else:
             return HttpResponseRedirect('/accounts/login')
 
@@ -59,3 +53,19 @@ class dashboard(View):
             return HttpResponse("login failed")
         """
         pass
+
+class mentorCourseHome(View):
+    template_name = "courseMentorBlock/courseHome.html"
+
+    def get(self, request, courseCode):
+        #this is apython comment
+        if request.user.is_authenticated:
+            #if user enrolled
+            courseDetails = course.objects.get(courseCode=courseCode)
+            if isFaculty(request.user, courseDetails):
+                context = {'details': courseDetails}
+                return render(request, self.template_name, context)
+            else:
+                return HttpResponse("not a faculty in course")
+        else:
+            return HttpResponse("Please login")

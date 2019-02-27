@@ -8,3 +8,5 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.hashers import make_password
 from Home.models import purePerson,student,faculty
 from Course.models import course
+
+

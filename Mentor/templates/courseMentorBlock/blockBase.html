@@ -1,0 +1,42 @@
+{% extends "../postFacLoginBase.html" %}
+{% load static %}
+
+
+{% block bodyContent %}
+
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <aside class="col-12 col-md-2 p-0 bg-light">
+            <nav style="position:sticky" class="navbar navbar-expand navbar-light bg-light flex-md-column flex-row align-items-start py-2" align="left">
+                <div class="collapse navbar-collapse">
+                    <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+                        <li class="nav-item">
+                            <a class="nav-link pl-0 text-nowrap" href="/course/block/{{details.courseCode}}"><i class="fa fa-bullseye fa-fw"></i> <span class="font-weight-bold">Home</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" href="#"><i class="fas fa-chalkboard-teacher"></i> <span class="d-none d-md-inline">Learn</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" href="#"><i class="fas fa-chart-bar"></i> <span class="d-none d-md-inline">Grades</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" href="#"><i class="fas fa-book-open"></i> <span class="d-none d-md-inline">Resourses</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" href="#"><i class="fas fa-tasks"></i> <span class="d-none d-md-inline"> Calender</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" href="#"><i class="fas fa-user-friends"></i> <span class="d-none d-md-inline">Discussion
+                                    Forum</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="col bg-faded py-3 h-100">
+            {%block courseBlock%}{%endblock%}
+            
+        </main>
+    </div>
+</div>
+{% endblock %}

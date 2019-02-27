@@ -21,7 +21,6 @@ class student(models.Model):
     roll=models.CharField(max_length=8)
     year=models.IntegerField()
     coursesTaken=models.ManyToManyField(course,related_name='course_instudents')
-    faculty_access = models.BooleanField(default=False)
 
     def __str__(self):
         return self.pPerson.user.first_name+" "+self.pPerson.user.last_name
@@ -30,9 +29,8 @@ class faculty(models.Model):
     pPerson = models.OneToOneField(purePerson, on_delete=models.CASCADE)
     idNum=models.CharField(max_length=8)
     yrEmployed=models.IntegerField()
-    salary=models.FloatField()
     designation =models.CharField(max_length=64,default="")
-    #courses=models.ManyToManyField(course,blank=True,related_name='course_faculties')
+    courses=models.ManyToManyField(course,related_name='course_faculties')
 
     def __str__(self):
         return self.pPerson.user.first_name+" "+self.pPerson.user.last_name

@@ -20,3 +20,10 @@ def isEnrolled(user,courseTaken):
         return True
     else:
         return False
+
+def isFaculty(user,course):
+    facUser = getFaculty(user)
+    if course in facUser.courses.all():
+        return True
+    else:
+        return False

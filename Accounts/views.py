@@ -30,18 +30,19 @@ class loginUser(View):
             person = purePerson.objects.get(user=request.user)
             if person.type == 'student':
                 activeUser = student.objects.get(pPerson=person)
-                s="stu"
             elif person.type =='faculty':
                 activeUser = faculty.objects.get(pPerson=person)
-                s="fac"
             else :
                 activeUser = user
-            if request.user.is_active and s=="stu": #only for students
+            if request.user.is_active and person.type == 'student': #only for students
                 courses_taken = activeUser.coursesTaken.all()
                 context = {'iduser': [activeUser, person.type, request.user.last_name, request.user.first_name,
                                       request.user.email], 'name': request.user.first_name, 'courses_taken': courses_taken}
                 redirect_template = 'loginDash.html'
                 return render(request,redirect_template,context)
+            elif request.user.is_active and person.type =='faculty':
+                return HttpResponseRedirect('/faculty/dashboard')
+
         else:
             return render(request,self.template_name)
 
