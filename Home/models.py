@@ -36,9 +36,13 @@ class faculty(models.Model):
         return self.pPerson.user.first_name+" "+self.pPerson.user.last_name
 
 class pureAdmin(models.Model):
+    pPerson = models.OneToOneField(purePerson, on_delete=models.CASCADE)
     adminusername=models.CharField(max_length=16)
     adminpasscode=models.CharField(max_length=16)
 
+    def __str__(self):
+        return self.pPerson.user.first_name
+        
 class department(models.Model):
     deptname=models.CharField(max_length=64)
     #hod=models.ForeignKey(faculty,on_delete = models.CASCADE,blank=True)

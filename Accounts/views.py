@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.hashers import make_password
-from Home.models import purePerson,student,faculty
+from Home.models import purePerson,student,faculty,pureAdmin
 from . import forms
 from Course.models import course
 from .getUser import getFaculty,getStudent
@@ -32,6 +32,8 @@ class loginUser(View):
                 activeUser = student.objects.get(pPerson=person)
             elif person.type =='faculty':
                 activeUser = faculty.objects.get(pPerson=person)
+            elif person.type == 'pureAdmin':
+                activeUser = pureAdmin.objects.get(pPerson=person)
             else :
                 activeUser = user
             if request.user.is_active and person.type == 'student': #only for students
@@ -42,6 +44,8 @@ class loginUser(View):
                 return render(request,redirect_template,context)
             elif request.user.is_active and person.type =='faculty':
                 return HttpResponseRedirect('/faculty/dashboard')
+            elif request.user.is_active and person.type == 'pureAdmin':
+                return HttpResponseRedirect('/admin/dashboard')
 
         else:
             return render(request,self.template_name)

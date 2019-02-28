@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from Home.models import purePerson, student, faculty
+from Home.models import purePerson, student, faculty, pureAdmin
 from Course.models import course
 from Course.studentCourseRel import isEnrolled, isFaculty
 
@@ -26,6 +26,8 @@ class dashboard(View):
                 activeUser = student.objects.get(pPerson=person)
             elif person.type == 'faculty':
                 activeUser = faculty.objects.get(pPerson=person)
+            elif person.type == 'pureAdmin':
+                activeUser = pureAdmin.objects.get(pPerson=person)
             else:
                 activeUser = user
             if request.user.is_active :  # only for students
@@ -37,6 +39,8 @@ class dashboard(View):
                                       request.user.email], 'name': request.user.first_name, 'courses': courses}
                     print(context)
                     return render(request,"dashboard.html",context)
+                elif person.type == 'pureAdmin':
+                    return HttpResponseRedirect('/admin/dashboard')
         else:
             return HttpResponseRedirect('/accounts/login')
 

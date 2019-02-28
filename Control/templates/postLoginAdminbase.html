@@ -1,0 +1,32 @@
+{% extends "adminBase.html" %}
+{% block headContent %}
+{% endblock %}
+
+{% block navBar %}
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark h-15" style="padding-bottom: 0;">
+    <a class="navbar-brand" style="padding-top:0;" href="/">
+        <img style="filter: invert(100%)" src="https://i.pinimg.com/originals/c5/1c/da/c51cda89a29626ea7b655bd7f703218c.png"
+            width="30" height="30" alt="">
+        P U R E
+    </a>
+    <div style="padding-bottom:5">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/course/allcourses">Available Courses</a>
+            <a class="nav-item nav-link" href="/accounts/dashboard">Dashboard</a>
+            <a class="nav-item nav-link disabled" href="#">Create Course</a>
+            <form class="form-inline justify-content-center" action="/accounts/logout" style="padding-top:4;padding-bottom:0;"
+                method="post">
+                {% csrf_token %}
+                <button class="nav-item navbar-btn btn-sm" style="padding-top:2" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>
+{% endblock %}
