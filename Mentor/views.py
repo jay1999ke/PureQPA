@@ -7,7 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Home.models import purePerson, student, faculty, pureAdmin
 from Course.models import course
-from Course.studentCourseRel import isEnrolled, isFaculty
+from Course.studentCourseRel import isEnrolled, isFaculty, getPerson
+from .forms import marks
 
 # Create your views here.
 
@@ -65,11 +66,32 @@ class mentorCourseHome(View):
         #this is apython comment
         if request.user.is_authenticated:
             #if user enrolled
-            courseDetails = course.objects.get(courseCode=courseCode)
-            if isFaculty(request.user, courseDetails):
-                context = {'details': courseDetails}
-                return render(request, self.template_name, context)
-            else:
-                return HttpResponse("not a faculty in course")
+            try:
+                courseDetails = course.objects.get(courseCode=courseCode)
+                if isFaculty(request.user, courseDetails):
+                    context = {'details': courseDetails}
+                    return render(request, self.template_name, context)
+                else:
+                    return HttpResponse("not a faculty in course")
+            except:
+                return HttpResponseRedirect('/accounts/dashboard')
+            
         else:
             return HttpResponse("Please login")
+
+class createExam(View):
+    
+    def get(self, request,courseCode):
+        user = getPerson(request.user)
+
+        if user.type == "faculty":
+            courseDetails = course.objects.get(courseCode=courseCode)
+            template_name = "courseMentorBlock/createExam.html"
+            marksForm = marks()
+            context = {'details': courseDetails,'form':marksForm}
+            return render(request,template_name,context)
+        else : 
+            return HttpResponseRedirect('/accounts/login')
+
+    def post(self,request,courseCode):
+        return HttpResponse("")

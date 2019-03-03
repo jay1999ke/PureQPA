@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Course.apps.CourseConfig',
     'Mentor.apps.MentorConfig',
     'Control.apps.ControlConfig',
+    'Assess.apps.AssessConfig',
 ]
 
 MIDDLEWARE = [

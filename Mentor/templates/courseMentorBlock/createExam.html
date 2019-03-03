@@ -1,0 +1,33 @@
+{% extends "../courseMentorBlock/blockBase.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{%block courseBlock%}
+
+<div class="jumbotron" style="height:85vh;">
+    <div class="container" align="center">
+        <h2>Create Exam</h2>
+        <br>
+        <p>Note: Please add questions to the database beforehand.</p>
+        <form class="login" action="" method="post" >
+            {% csrf_token %}
+            <div class="form-group">
+                {% render_field form.name class+="password required form-control" autocomplete="off" placeholder="Exam name" %}
+            </div>
+
+            <div class="form-group">
+              {% render_field form.totalMarks class+="password required form-control" autocomplete="off" placeholder="Total marks" type='number' %}
+            </div>
+
+            
+  
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary" name="submit" value="Start">
+            </div>
+            </form>
+  
+    </div>
+</div>
+
+{%endblock%}

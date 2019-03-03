@@ -26,4 +26,5 @@ urlpatterns = [
     path('course/',include("Course.urls")),
     path('faculty/',include("Mentor.urls")),
     path('admin/',include("Control.urls")),
+    path('exam/',include('Assess.urls')),
 ]
