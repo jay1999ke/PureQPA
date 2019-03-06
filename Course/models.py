@@ -15,6 +15,7 @@ class course(models.Model):
 class question(models.Model):
     course=models.ForeignKey(course,related_name='course_question',on_delete=models.CASCADE)
     question = models.CharField(max_length=1024)
+    topic = models.CharField(max_length=128)
     marks = models.IntegerField()
     types=(
         ('binary','binary'),
@@ -28,8 +29,8 @@ class question(models.Model):
         return self.course.courseCode + " | " + self.question + " | " + str(self.marks) +" marks"
 
 class questionPaper(models.Model):
-    course=models.OneToOneField(course,related_name='course_question_paper',on_delete=models.CASCADE)
-    questions =models.ForeignKey(question,related_name='question_of_course',on_delete=models.CASCADE)
+    course=models.ForeignKey(course,related_name='course_question_paper',on_delete=models.CASCADE)
+    questions =models.ManyToManyField(question,related_name='question_of_course')
     examName = models.CharField(max_length=1024)
 
     def __str__(self):

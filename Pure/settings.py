@@ -25,7 +25,7 @@ SECRET_KEY = '!h&uq0s8vymo5^vjnls*ks(c5!vmy#9mb_^a=1ke#jb^8oeo4m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.2.2','0.0.0.0','projectxnirma.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.2.6','0.0.0.0','projectxnirma.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition

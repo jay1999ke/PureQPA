@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Home.models import purePerson, student, faculty, pureAdmin
-from Course.models import course
+from Course.models import course, question, questionPaper
 from Course.studentCourseRel import isEnrolled, isFaculty, getPerson
 from .forms import marks
 
@@ -38,7 +38,6 @@ class dashboard(View):
                     courses = activeUser.courses.all()
                     context = {'iduser': [activeUser, person.type, request.user.last_name, request.user.first_name,
                                       request.user.email], 'name': request.user.first_name, 'courses': courses}
-                    print(context)
                     return render(request,"dashboard.html",context)
                 elif person.type == 'pureAdmin':
                     return HttpResponseRedirect('/admin/dashboard')
@@ -94,4 +93,18 @@ class createExam(View):
             return HttpResponseRedirect('/accounts/login')
 
     def post(self,request,courseCode):
-        return HttpResponse("")
+        marksForm = marks(request.POST)
+        if marksForm.is_valid():
+            totalMarks=marksForm.cleaned_data['totalMarks']
+            examName = marksForm.cleaned_data['name']
+            courseDetails = course.objects.get(courseCode=courseCode)
+
+            new_exam = questionPaper(course=courseDetails,examName=examName)
+            curr_marks = 0
+            allQuestions = question.objects.filter(course=courseDetails)
+            while(curr_marks == totalMarks):
+                pass
+
+            new_exam.save()
+
+        return HttpResponse("dp")
