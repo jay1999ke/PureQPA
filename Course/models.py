@@ -32,6 +32,9 @@ class questionPaper(models.Model):
     course=models.ForeignKey(course,related_name='course_question_paper',on_delete=models.CASCADE)
     questions =models.ManyToManyField(question,related_name='question_of_course')
     examName = models.CharField(max_length=1024)
+    marks = models.IntegerField(default=0)
+    examhash = models.CharField(max_length=20)
+
 
     def __str__(self):
         return self.examName

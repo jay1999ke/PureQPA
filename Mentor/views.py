@@ -8,7 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Home.models import purePerson, student, faculty, pureAdmin
 from Course.models import course, question, questionPaper
 from Course.studentCourseRel import isEnrolled, isFaculty, getPerson
-from .forms import marks
+from .forms import marks,questionType
+from hashlib import sha1
 
 # Create your views here.
 
@@ -93,18 +94,30 @@ class createExam(View):
             return HttpResponseRedirect('/accounts/login')
 
     def post(self,request,courseCode):
-        marksForm = marks(request.POST)
-        if marksForm.is_valid():
-            totalMarks=marksForm.cleaned_data['totalMarks']
-            examName = marksForm.cleaned_data['name']
+        courseDetails = course.objects.get(courseCode=courseCode)
+        if request.POST['submit'] == 'Start':
+            marksForm = marks(request.POST)
+            if marksForm.is_valid():
+                totalMarks=int(marksForm.cleaned_data['totalMarks'])
+                examName = marksForm.cleaned_data['name']
+                r = sha1(examName.encode())
+                new_exam = questionPaper(marks=totalMarks,course=courseDetails,examName=examName,examhash=r.hexdigest())
+                curr_marks = 0
+                #allQuestions = question.objects.filter(course=courseDetails)
+                new_exam.save()
+
+                return HttpResponseRedirect("/faculty/examcreation/"+str(courseCode)+"/"+str(r.hexdigest())+"/0")
+
+class addExamQuestions(View):
+    def get(self,request,courseCode,testhash,curr_marks):
+        user = getPerson(request.user)
+
+        if user.type == "faculty":
+            #exam = questionPaper.objects.get(examhash = testhash)
+            typeForm = questionType()
             courseDetails = course.objects.get(courseCode=courseCode)
 
-            new_exam = questionPaper(course=courseDetails,examName=examName)
-            curr_marks = 0
-            allQuestions = question.objects.filter(course=courseDetails)
-            while(curr_marks == totalMarks):
-                pass
-
-            new_exam.save()
-
-        return HttpResponse("dp")
+            context = {'details': courseDetails,'form':typeForm}
+            
+            return render(request,"courseMentorBlock/addExamQuestionType.html",context=context)
+        return HttpResponse("sdf")
