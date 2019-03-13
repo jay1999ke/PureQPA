@@ -12,8 +12,9 @@
         <form class="login" action="" method="post" >
             {% csrf_token %}
             <div class="form-group" type="dropdown">
-                {% render_field form.type class+="password required form-control" placeholder="Question type" type="dropdown" %}
+                {% render_field form.question  %}
             </div>         
+  
             <div class="form-group">
               <input type="submit" class="btn btn-primary" name="submit" value="Continue">
             </div>

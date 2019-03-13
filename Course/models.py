@@ -27,7 +27,7 @@ class question(models.Model):
 
 
     def __str__(self):
-        return self.course.courseCode + " | " + self.question + " | " + str(self.marks) +" marks"
+        return self.course.courseCode + " | " + self.question 
 
 class questionPaper(models.Model):
     course=models.ForeignKey(course,related_name='course_question_paper',on_delete=models.CASCADE)

@@ -13,5 +13,12 @@ class questionType(forms.Form):
     types=[('binary','Binary question'),
         ('blank','Fill in the blanks'),
         ('wh','Wh type question')]
-    type=forms.ChoiceField(choices=types, widget=forms.RadioSelect)
+    type=forms.ChoiceField(choices=types)
 
+
+class questionSelect(forms.Form):
+     
+     def __init__(self, possible_q,*args, **kwargs):
+        super(questionSelect, self).__init__(*args, **kwargs)
+        self.fields['question'] = forms.ChoiceField(choices=possible_q)
+        self.fields['marks'] = forms.IntegerField()

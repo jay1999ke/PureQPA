@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Home.models import purePerson, student, faculty, pureAdmin
 from Course.models import course, question, questionPaper
 from Course.studentCourseRel import isEnrolled, isFaculty, getPerson
-from .forms import marks,questionType
+from .forms import marks,questionType, questionSelect
 from hashlib import sha1
 
 # Create your views here.
@@ -120,4 +120,28 @@ class addExamQuestions(View):
             context = {'details': courseDetails,'form':typeForm}
             
             return render(request,"courseMentorBlock/addExamQuestionType.html",context=context)
-        return HttpResponse("sdf")
+        return HttpResponseRedirect("accounts/dashboard")
+
+    def post(self,request,courseCode,testhash,curr_marks):
+        typeForm = questionType(request.POST)
+
+        if typeForm.is_valid():
+            type_q = typeForm.cleaned_data['type']
+            typehash = type_q
+            return HttpResponseRedirect("/faculty/examquestion/"+courseCode+"/"+testhash+"/"+str(curr_marks)+"/"+typehash)
+
+
+        pass
+
+class addSelectedExamQuestions(View):
+    def get(self,request,courseCode,testhash,curr_marks,typehash):
+        courseDetails = course.objects.get(courseCode=courseCode)
+        type_q = typehash
+        possible_q = question.objects.filter(course=courseDetails,type=type_q)
+        possible_q = [(x,x) for x in possible_q]
+        possible_q = tuple(possible_q)
+        print(possible_q)
+        que = questionSelect(possible_q=possible_q)
+        context = {'details':courseDetails,'form':que}
+
+        return render(request,"courseMentorBlock/addExamQuestion.html",context=context)
