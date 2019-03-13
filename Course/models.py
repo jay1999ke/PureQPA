@@ -17,6 +17,7 @@ class question(models.Model):
     question = models.CharField(max_length=1024)
     topic = models.CharField(max_length=128)
     marks = models.IntegerField()
+    status = models.IntegerField(default=0)
     types=(
         ('binary','binary'),
         ('blank','blank'),
