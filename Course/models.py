@@ -17,7 +17,6 @@ class question(models.Model):
     question = models.CharField(max_length=1024)
     topic = models.CharField(max_length=128)
     marks = models.IntegerField()
-    status = models.IntegerField(default=0)
     types=(
         ('binary','binary'),
         ('blank','blank'),
@@ -27,7 +26,7 @@ class question(models.Model):
 
 
     def __str__(self):
-        return self.course.courseCode + " | " + self.question 
+        return self.course.courseCode + " | " + self.question + " | " + str(self.marks)
 
 class questionPaper(models.Model):
     course=models.ForeignKey(course,related_name='course_question_paper',on_delete=models.CASCADE)
@@ -35,6 +34,8 @@ class questionPaper(models.Model):
     examName = models.CharField(max_length=1024)
     marks = models.IntegerField(default=0)
     examhash = models.CharField(max_length=20)
+    status = models.IntegerField(default=-1)
+
 
 
     def __str__(self):

@@ -135,13 +135,40 @@ class addExamQuestions(View):
 
 class addSelectedExamQuestions(View):
     def get(self,request,courseCode,testhash,curr_marks,typehash):
+
+        testhash=str(testhash)
+        exam = questionPaper.objects.get(examhash=testhash)
+        exam_que = exam.questions.all()
+
         courseDetails = course.objects.get(courseCode=courseCode)
         type_q = typehash
         possible_q = question.objects.filter(course=courseDetails,type=type_q)
-        possible_q = [(x,x) for x in possible_q]
+        possible_q = [(x,str(x)) for x in possible_q if (x not in exam_que)]
         possible_q = tuple(possible_q)
-        print(possible_q)
         que = questionSelect(possible_q=possible_q)
         context = {'details':courseDetails,'form':que}
+        if len(possible_q) != 0:
+            return render(request,"courseMentorBlock/addExamQuestion.html",context=context)
+        else:
+            return HttpResponseRedirect("/faculty/examcreation/"+str(courseCode)+"/"+str(testhash)+"/"+str(curr_marks))
 
-        return render(request,"courseMentorBlock/addExamQuestion.html",context=context)
+    def post(self,request,courseCode,testhash,curr_marks,typehash):
+
+        try:
+            que_str = request.POST['question'].split(" | ")
+            que_str = que_str[1]
+            que_test = question.objects.get(question=que_str)
+            testhash=str(testhash)
+            exam = questionPaper.objects.get(examhash=testhash)
+            curr_marks = int(curr_marks)
+            marks = que_test.marks
+            if(curr_marks < curr_marks + marks):        
+                exam.questions.add(que_test)
+                curr_marks = curr_marks + marks
+                exam.status = curr_marks
+                exam.save()
+                return HttpResponseRedirect("/faculty/examcreation/"+str(courseCode)+"/"+str(testhash)+"/"+str(curr_marks))
+
+        except:
+            HttpResponseRedirect("/faculty/examcreation/"+str(courseCode)+"/"+str(testhash)+"/"+str(curr_marks))
+            
