@@ -11,5 +11,5 @@ urlpatterns = [
     path('examquestion/<slug:courseCode>/<slug:testhash>/<int:curr_marks>/<slug:typehash>',views.addSelectedExamQuestions.as_view(),name="add_questions"),
     path('resources/<slug:courseCode>/addQuestion',views.addQuestions.as_view(),name="add_q"),
     path('resources/<slug:courseCode>/addQuestion/manual',views.addQuestionsManual.as_view(),name="add_q_m"),
-    path('resources/<slug:courseCode>/addQuestion/auto',views.addQuestions.as_view(),name="add_q_a"),
+    path('resources/<slug:courseCode>/addQuestion/auto',views.addQuestionsAuto.as_view(),name="add_q_a"),
 ]

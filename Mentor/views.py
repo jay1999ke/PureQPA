@@ -10,6 +10,9 @@ from Course.models import course, question, questionPaper
 from Course.studentCourseRel import isEnrolled, isFaculty, getPerson
 from .forms import *
 from hashlib import sha1
+from QgModule.parse import Parse
+parser = Parse()
+
 
 # Create your views here.
 
@@ -202,6 +205,7 @@ class addQuestionsManual(View):
 
 class addQuestionsAuto(View):
     def get(self,request,courseCode):
+        print(p.parse("i am jay"))
         pass
     
     def post(self,request,courseCode):

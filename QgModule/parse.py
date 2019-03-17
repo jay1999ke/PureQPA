@@ -22,10 +22,15 @@ Citation: https://www.khalidalnajjar.com/setup-use-stanford-corenlp-server-pytho
 class Parse:
 
     def __init__(self, host='http://localhost', port=9000):
+        print("[Stanford CoreNLP server version 3.9.1]")
+        print("Initiating Connection with Stanford CoreNLP server.")
+        print("Connecting to http://127.0.0.1:9000/",)
         t1 = time.time()
         self.nlp = StanfordCoreNLP(host, port=port,
                                    timeout=30000)#, quiet=True, logging_level=logging.DEBUG)
-        print("Connection time: ",time.time()-t1)
+        print("Connection time: ",round(time.time()-t1,4),"Seconds")
+        print("Established Connection with Stanford CoreNLP server.","\n\n")
+        print("[Django server version 2.1.5]")
         self.props = {
             'annotators': 'tokenize,ssplit,pos,lemma,ner,parse,depparse,dcoref,relation',
             'pipelineLanguage': 'en',
