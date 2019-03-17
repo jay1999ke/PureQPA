@@ -1,0 +1,25 @@
+{% extends "../courseMentorBlock/blockBase.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{%block courseBlock%}
+
+<div class="jumbotron" style="height:85vh;">
+    <div class="container" align="center">
+        <h2>Select Mode of adding Question</h2>
+        <br>
+        <form class="login" action="" method="post" >
+            {% csrf_token %}
+            <div class="form-group" type="dropdown">
+                {% render_field form.type class+="password required form-control" type="dropdown" %}
+            </div>         
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary" name="submit" value="Continue">
+            </div>
+            </form>
+  
+    </div>
+</div>
+
+{%endblock%}

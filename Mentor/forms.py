@@ -17,7 +17,11 @@ class questionType(forms.Form):
 
 
 class questionSelect(forms.Form):
-     
-     def __init__(self, possible_q,*args, **kwargs):
+    def __init__(self, possible_q,*args, **kwargs):
         super(questionSelect, self).__init__(*args, **kwargs)
         self.fields['question'] = forms.ChoiceField(choices=possible_q)
+
+class addQuestion(forms.Form):
+    types=[('manual','Add Questions Manually'),
+        ('auto','Generate Questions')]
+    type= forms.ChoiceField(choices=types)

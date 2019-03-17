@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Home.models import purePerson, student, faculty, pureAdmin
 from Course.models import course, question, questionPaper
 from Course.studentCourseRel import isEnrolled, isFaculty, getPerson
-from .forms import marks,questionType, questionSelect
+from .forms import *
 from hashlib import sha1
 
 # Create your views here.
@@ -130,9 +130,6 @@ class addExamQuestions(View):
             typehash = type_q
             return HttpResponseRedirect("/faculty/examquestion/"+courseCode+"/"+testhash+"/"+str(curr_marks)+"/"+typehash)
 
-
-        pass
-
 class addSelectedExamQuestions(View):
     def get(self,request,courseCode,testhash,curr_marks,typehash):
 
@@ -171,4 +168,41 @@ class addSelectedExamQuestions(View):
 
         except:
             HttpResponseRedirect("/faculty/examcreation/"+str(courseCode)+"/"+str(testhash)+"/"+str(curr_marks))
+
+class addQuestions(View):
+    def get(self,request,courseCode):
+        user = getPerson(request.user)
+
+        if user.type == "faculty":
+            #exam = questionPaper.objects.get(examhash = testhash)
+            typeForm = addQuestion()
+            courseDetails = course.objects.get(courseCode=courseCode)
+
+            context = {'details': courseDetails,'form':typeForm}
             
+            return render(request,"courseMentorBlock/addQuestion.html",context=context)
+        return HttpResponseRedirect("accounts/dashboard")
+    
+    def post(self,request,courseCode):
+        typeForm = addQuestion(request.POST)
+        if typeForm.is_valid():
+            type_q = typeForm.cleaned_data['type']
+            print("\n\n\n\n\n\n",type_q)
+            if type_q == "manual":
+                return HttpResponseRedirect("/faculty/resources/"+courseCode+"/addQuestion/manual")
+            elif type_q == "auto":
+                return HttpResponseRedirect("/faculty/resources/"+courseCode+"/addQuestion/auto")
+
+class addQuestionsManual(View):
+    def get(self,request,courseCode):
+        return HttpResponse("Working in progress")
+    
+    def post(self,request,courseCode):
+        pass
+
+class addQuestionsAuto(View):
+    def get(self,request,courseCode):
+        pass
+    
+    def post(self,request,courseCode):
+        pass
