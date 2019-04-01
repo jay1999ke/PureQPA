@@ -1,7 +1,7 @@
 import sys
 import os
 import nltk
-from name_entity_processing import NEP
+from QgModule.name_entity_processing import NEP
     
 class Tokenise:
     """ tokenize wiki article into sentences with top_k option """ 

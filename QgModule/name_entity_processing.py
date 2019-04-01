@@ -1,4 +1,4 @@
-from parse import Parse
+from QgModule.parse import Parse
 from nltk.tree import Tree as Tree
 
 

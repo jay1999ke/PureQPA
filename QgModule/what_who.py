@@ -8,10 +8,10 @@ import logging
 import json
 from nltk.parse import stanford
 from nltk.tree import Tree as Tree
-from parse_sentence import *
+from QgModule.parse_sentence import *
 from pattern.en import conjugate
 from pattern.en import tenses
-from binary import *
+from QgModule.binary import *
 import importlib
 importlib.reload(sys)  
 #sys.setdefaultencoding('utf8')

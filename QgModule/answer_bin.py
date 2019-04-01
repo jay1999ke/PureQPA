@@ -6,13 +6,13 @@ import logging
 import json
 from nltk.parse import stanford
 from nltk.tree import Tree as Tree
-from parse_sentence import *
+from QgModule.parse_sentence import *
 from pattern.en import conjugate
 from pattern.en import tenses
 import nltk, string
 from nltk.corpus import wordnet
 from nltk.corpus import stopwords
-from binary import Binary
+from QgModule.binary import Binary
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import importlib

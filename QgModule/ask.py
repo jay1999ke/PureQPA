@@ -1,8 +1,8 @@
-from bin_questions import BinQuestion
-from binary import Binary
-from wh_question import WH
-from tokenizeScript import Tokenise
-from parse import Parse
+from QgModule.bin_questions import BinQuestion
+from QgModule.binary import Binary
+from QgModule.wh_question import WH
+from QgModule.tokenizeScript import Tokenise
+from QgModule.parse import Parse
 
 class Ask:
 

@@ -25,3 +25,6 @@ class addQuestion(forms.Form):
     types=[('manual','Add Questions Manually'),
         ('auto','Generate Questions')]
     type= forms.ChoiceField(choices=types)
+
+class autoGenerate(forms.Form):
+    text = forms.CharField(widget=forms.Textarea)

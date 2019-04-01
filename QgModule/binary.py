@@ -7,7 +7,7 @@ import logging
 import json
 from nltk.parse import stanford
 from nltk.tree import Tree as Tree
-from parse import Parse
+from QgModule.parse import Parse
 from pattern.en import conjugate
 from pattern.en import tenses
 import importlib

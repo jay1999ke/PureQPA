@@ -11,6 +11,12 @@ from Course.studentCourseRel import isEnrolled, isFaculty, getPerson
 from .forms import *
 from hashlib import sha1
 from QgModule.parse import Parse
+from QgModule.ask import Ask
+from QgModule.bin_questions import BinQuestion
+from QgModule.binary import Binary
+from QgModule.wh_question import WH
+from QgModule.tokenizeScript import Tokenise
+
 parser = Parse()
 
 
@@ -205,8 +211,22 @@ class addQuestionsManual(View):
 
 class addQuestionsAuto(View):
     def get(self,request,courseCode):
-        print(p.parse("i am jay"))
-        pass
+        user = getPerson(request.user)
+
+        if user.type == "faculty":
+            form = autoGenerate()
+
+            courseDetails = course.objects.get(courseCode=courseCode)
+
+            context = {'details': courseDetails,'form':form}
+
+            return render(request,"courseMentorBlock/autoText.html",context=context)
+        return HttpResponseRedirect("/accounts/dashboard")
     
     def post(self,request,courseCode):
-        pass
+        form = autoGenerate(request.POST)
+
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            
+            return HttpResponse("asd")

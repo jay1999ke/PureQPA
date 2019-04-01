@@ -1,8 +1,8 @@
-from parse import Parse
+from QgModule.parse import Parse
 from nltk.tree import Tree as Tree
-from binary import Binary
-from why import Why
-from what_who import What_Who
+from QgModule.binary import Binary
+from QgModule.why import Why
+from QgModule.what_who import What_Who
 import operator
 import re
 
