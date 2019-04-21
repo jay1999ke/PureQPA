@@ -28,3 +28,11 @@ class addQuestion(forms.Form):
 
 class autoGenerate(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
+
+class questionSelectAuto(forms.Form):
+    def __init__(self,questions,*args,**kwargs):
+        super(questionSelectAuto,self).__init__(*args, **kwargs)
+       
+        self.fields['possible_qs'] = forms.CheckboxSelectMultiple(choices=questions)
+
+        super(questionSelectAuto, self).full_clean()

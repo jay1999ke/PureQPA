@@ -12,10 +12,6 @@ from .forms import *
 from hashlib import sha1
 from QgModule.parse import Parse
 from QgModule.ask import Ask
-from QgModule.bin_questions import BinQuestion
-from QgModule.binary import Binary
-from QgModule.wh_question import WH
-from QgModule.tokenizeScript import Tokenise
 
 parser = Parse()
 
@@ -225,8 +221,23 @@ class addQuestionsAuto(View):
     
     def post(self,request,courseCode):
         form = autoGenerate(request.POST)
+        post_form = questionSelectAuto(questions=request.POST)
 
         if form.is_valid():
             text = form.cleaned_data['text']
+            Asker = Ask()
+            questions_ = Asker.main(text=text,parser=parser)
+            choices=[]
+            for question in questions_:
+                tup = (question,question)
+                choices.append(tup)
+            post_form_ = questionSelectAuto(questions=choices)
+
+            courseDetails = course.objects.get(courseCode=courseCode)
+            context = {'details': courseDetails,'form':post_form_}
             
-            return HttpResponse("asd")
+            return render(request,"courseMentorBlock/autoTextSelect.html",context=context)
+        elif post_form.is_valid():
+            question_list = post_form.changed_data['possible_qs']
+            for x in question_list:
+                print('\n\n',x,'\n\n')

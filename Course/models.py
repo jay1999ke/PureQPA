@@ -22,6 +22,7 @@ class question(models.Model):
         ('blank','blank'),
         ('wh','wh'),
     )
+    answer = models.CharField(max_length=1024,default=True)
     type=models.CharField(max_length=20, choices=types, default='binary')
 
 
@@ -33,8 +34,9 @@ class questionPaper(models.Model):
     questions =models.ManyToManyField(question,related_name='question_of_course')
     examName = models.CharField(max_length=1024)
     marks = models.IntegerField(default=0)
-    examhash = models.CharField(max_length=20)
+    examhash = models.CharField(max_length=40)
     status = models.IntegerField(default=-1)
+    launchStatus = models.BooleanField(default=False)
 
 
 

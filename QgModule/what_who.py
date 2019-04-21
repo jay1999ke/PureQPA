@@ -47,8 +47,3 @@ class What_Who:
 		print(sent)
 		return sent
 
-
-# What_Who = What_Who()
-
-# What_Who.main("Dempsey is the firt place.", ["Dempsey"])
-# What_Who.main("Earth orbits the sun.", ["Dempsey"])

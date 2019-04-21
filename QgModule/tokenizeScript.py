@@ -9,9 +9,7 @@ class Tokenise:
         acc = []
         # 1. tokenize chunk of raw string into sentence
         tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-        target_dir = article
-        target_file_object = open(target_dir)
-        raw_data = target_file_object.read()
+        raw_data = article
         NEP_output = NEP.transform_pronoun(raw_data)
         raw_data = NEP_output[0]
 

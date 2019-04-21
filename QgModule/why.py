@@ -44,17 +44,10 @@ class Why:
 		tree = parser.parse(text)
 		tree = Tree.fromstring(str(tree))
 		if not self.is_why(tree):
-			# print ("It could not be converted to why question.")
 			return None 
 		(top_level_structure, parse_by_structure) = self.remove_SBAR(tree)
 		sent = " ".join(parse_by_structure)
 		sent = Binary.main(sent,parser)
-		# print "Why " + sent
 		return "Why " + sent
   
-
-# Why = Why()
-# Why.main("it periodically brightens by one magnitude or less because it is a flare star.")
-# Why.main("he is tall since he is a good man.")
-# Why.main("because he lives a good life, he never likes her.")
 
