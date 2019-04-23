@@ -1,0 +1,18 @@
+{% extends "../courseBlock/blockBase.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{%block courseBlock%}
+
+<div class="jumbotron" style="height:85vh;">
+    <div class="container" align="center">
+        <br>
+        <h2>Your score in {{ exam }}:</h2>
+        <br>
+        <h3>{{score}}</h3>
+  
+    </div>
+</div>
+
+{%endblock%}

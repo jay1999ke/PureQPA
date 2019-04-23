@@ -11,7 +11,6 @@ class marks(forms.Form):
 
 class questionType(forms.Form):
     types=[('binary','Binary question'),
-        ('blank','Fill in the blanks'),
         ('wh','Wh type question')]
     type=forms.ChoiceField(choices=types)
 

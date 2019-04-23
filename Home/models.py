@@ -1,5 +1,5 @@
 from django.db import models
-from Course.models import course
+from Course.models import course, questionPaper
 from django.contrib.auth.models import User
 
 # Create your models here.zz
@@ -51,3 +51,11 @@ class department(models.Model):
     def __str__(self):
         return self.deptname
 
+class scoreExam(models.Model):
+    student = models.ForeignKey(student,related_name="student_scores",on_delete=models.CASCADE)
+    question_paper = models.ForeignKey(questionPaper,related_name="exam_scores",on_delete=models.CASCADE)
+    score = models.IntegerField()
+    outof = models.IntegerField()
+
+    def __str__(self):
+        return str(self.student) + " | "+str(self.question_paper) + " | score: "+str(self.score) +" / "+str(self.outof)

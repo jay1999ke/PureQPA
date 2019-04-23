@@ -1,0 +1,27 @@
+{% extends "../courseBlock/blockBase.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{%block courseBlock%}
+
+<div class="jumbotron" style="height:85vh;">
+    <div class="container" align="center">
+        <br>
+        <h2>{{qnum}} . {{question}}</h2>
+        <br>
+        <form class="login" action="" method="post" >
+            {% csrf_token %}
+            <div class="form-group" >
+                {% render_field form.ans class+="password required form-control" %}
+            </div>         
+
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary" name="submit" value="Continue">
+            </div>
+        </form>
+  
+    </div>
+</div>
+
+{%endblock%}
