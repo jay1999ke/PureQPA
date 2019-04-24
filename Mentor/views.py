@@ -169,6 +169,10 @@ class addSelectedExamQuestions(View):
                 curr_marks = curr_marks + marks
                 exam.status = curr_marks
                 exam.save()
+                if exam.marks == curr_marks:
+                    exam.launchStatus = True
+                    exam.save()
+                    return HttpResponse("<h1>DONE</h1>")
                 return HttpResponseRedirect("/faculty/examcreation/"+str(courseCode)+"/"+str(testhash)+"/"+str(curr_marks))
 
         except:
