@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Home.models import purePerson, student, faculty, pureAdmin
-from Course.models import course, question, questionPaper
+from Course.models import course, question, questionPaper,intermediateQuestion
 from Course.studentCourseRel import isEnrolled, isFaculty, getPerson
 from .forms import *
 from hashlib import sha1
@@ -220,6 +220,7 @@ class addQuestionsAuto(View):
         return HttpResponseRedirect("/accounts/dashboard")
     
     def post(self,request,courseCode):
+
         form = autoGenerate(request.POST)
         post_form = questionSelectAuto(questions=request.POST)
 
@@ -237,7 +238,66 @@ class addQuestionsAuto(View):
             context = {'details': courseDetails,'form':post_form_}
             
             return render(request,"courseMentorBlock/autoTextSelect.html",context=context)
-        elif post_form.is_valid():
-            question_list = post_form.changed_data['possible_qs']
-            for x in question_list:
-                print('\n\n',x,'\n\n')
+        else:
+            try:
+                print(request.POST['possible_qs'])
+                q_list = request.POST.getlist(key='possible_qs')
+                hashTotal = ""
+                for x in q_list:
+                    inhash = sha1(x.encode())
+                    inhash = inhash.hexdigest()
+                    hashTotal = hashTotal + inhash
+                    inter = intermediateQuestion(question=x,questionHash=inhash)
+                    inter.save()
+                
+                return HttpResponseRedirect("/faculty/resources/"+courseCode+"/addQuestion/auto/"+hashTotal)
+
+
+
+
+            
+            except:
+                pass
+
+
+class addQuestionsAutoFinal(View):
+    def get(self,request,courseCode,hasher):
+        courseDetails = course.objects.get(courseCode=courseCode)
+
+        if(len(hasher) >= 40):
+            n_q = len(hasher)%40
+            q_hash = hasher[0:40]
+            question = intermediateQuestion.objects.get(questionHash=q_hash)
+            form = questionSelectAutoFinal()
+            question = question.question
+            context = {"form":form,"question":question,"details":courseDetails}
+            return render(request,"courseMentorBlock/autoTextSelectFinal.html",context=context)
+        else:
+            return HttpResponse("<h1>Internal Server Error</h1>")
+
+    def post(self,request,courseCode,hasher):
+        courseDetails = course.objects.get(courseCode=courseCode)
+        form = questionSelectAutoFinal(request.POST)
+
+        if form.is_valid():
+            n_q = len(hasher)%40
+            q_hash = hasher[0:40]
+            question_ = intermediateQuestion.objects.get(questionHash=q_hash)
+            question_str = question_.question
+            marks_ = form.cleaned_data["marks"]
+            ans = form.cleaned_data['answer']
+            type_ = form.cleaned_data['type']
+
+            q = question(question=question_str,course=courseDetails,marks=marks_,answer=ans,type=type_)
+            q.save()
+            new_hash = hasher[40:]
+            question_.delete()
+            if len(new_hash) < 40:
+                return HttpResponseRedirect("/faculty/resources/"+courseCode+"/addQuestion/auto")
+            return HttpResponseRedirect("/faculty/resources/"+courseCode+"/addQuestion/auto/"+new_hash)
+            
+        else:
+            return HttpResponse("<h1>Internal Server Error</h1>")
+
+
+

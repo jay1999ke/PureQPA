@@ -12,4 +12,5 @@ urlpatterns = [
     path('resources/<slug:courseCode>/addQuestion',views.addQuestions.as_view(),name="add_q"),
     path('resources/<slug:courseCode>/addQuestion/manual',views.addQuestionsManual.as_view(),name="add_q_m"),
     path('resources/<slug:courseCode>/addQuestion/auto',views.addQuestionsAuto.as_view(),name="add_q_a"),
+    path('resources/<slug:courseCode>/addQuestion/auto/<slug:hasher>',views.addQuestionsAutoFinal.as_view(),name="add_q_af"),
 ]

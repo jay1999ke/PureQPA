@@ -7,12 +7,20 @@
 
 <div class="jumbotron" style="height:85vh;">
     <div class="container" align="center">
-        <h2>Select questions to add to database</h2>
+        <h2>{{question}}</h2>
         <br>
         <form class="login" action="" method="post" >
             {% csrf_token %}
+
             <div class="form-group" >
-                {% render_field form.possible_qs  %}
+                {% render_field form.answer class+="password required form-control" placeholder+="answer" %}
+            </div>       
+            <div class="form-group" >
+                <h6>Assign marks: </h6>
+                {% render_field form.marks class+="password required form-control" %}
+            </div> 
+            <div class="form-group" >
+                {% render_field form.type class+="password required form-control"  %}
             </div>       
             <div class="form-group">
               <input type="submit" class="btn btn-primary" name="submit" value="Continue">

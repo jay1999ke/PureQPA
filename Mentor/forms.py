@@ -32,6 +32,15 @@ class questionSelectAuto(forms.Form):
     def __init__(self,questions,*args,**kwargs):
         super(questionSelectAuto,self).__init__(*args, **kwargs)
        
-        self.fields['possible_qs'] = forms.CheckboxSelectMultiple(choices=questions)
+        self.fields['possible_qs'] = forms.MultipleChoiceField(choices=questions,widget  = forms.CheckboxSelectMultiple)
 
-        super(questionSelectAuto, self).full_clean()
+class questionSelectAutoFinal(forms.Form):
+    answer = forms.CharField()
+    marks = forms.IntegerField()
+    types=(('binary','binary'),
+        ('wh','wh')
+    )
+    type=forms.ChoiceField(choices=types)
+
+
+
