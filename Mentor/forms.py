@@ -21,7 +21,7 @@ class questionSelect(forms.Form):
         self.fields['question'] = forms.ChoiceField(choices=possible_q)
 
 class addQuestion(forms.Form):
-    types=[('manual','Add Questions Manually'),
+    types=[
         ('auto','Generate Questions')]
     type= forms.ChoiceField(choices=types)
 
