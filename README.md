@@ -1,9 +1,8 @@
 # PURE - A Question Paper Assistant
 
-An online portal for educational organizations to conduct online examinations and help with the generation and answering of factual questions from text. 
+An online portal for educational organizations to conduct online examinations and help with the generation of factual questions from text. 
 
-Question paper assistant aims to facilitate the process of conducting online exams and to help the faculty with the generation of basic factual questions from given text. Along with this, it aims to provide a functionality of factual question answering. It provides
-support to educational organizations to conduct hassle-free examinations with the help of state-of-art question generation techniques.
+Question paper assistant aims to facilitate the process of conducting online exams and to help the faculty with the generation of basic factual questions from given text. It provides support to educational organizations to conduct hassle-free examinations with the help of state-of-art question generation techniques.
 
 ### Functionalities
 
